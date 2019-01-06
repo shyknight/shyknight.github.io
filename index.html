@@ -165,7 +165,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/05/JavaIO和网络模型/">Java I/O 和网络模型</a>
+      <a class="article-title" href="/2019/01/05/JavaIO和网络模型/">Java I/O和网络模型</a>
     </h1>
   
 
@@ -178,8 +178,15 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/2019/01/05/JavaIO和网络模型/networkAndIO.png" alt="网络模型和IO"></p>
-<h1 id="什么是I-O"><a href="#什么是I-O" class="headerlink" title="什么是I/O"></a>什么是I/O</h1><p>进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间</p>
+        <h1 id="什么是I-O"><a href="#什么是I-O" class="headerlink" title="什么是I/O"></a>什么是I/O</h1><p>进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间</p>
+<h2 id="I-O的基本概念"><a href="#I-O的基本概念" class="headerlink" title="I/O的基本概念"></a>I/O的基本概念</h2><ul>
+<li>I/O操作分为两个步骤：<ul>
+<li>1、磁盘把数据装载到内核的内存空间</li>
+<li>2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)</li>
+</ul>
+</li>
+<li>进程进行I/O获取数据的详细图解<ul>
+<li><img src="/2019/01/05/JavaIO和网络模型/what&#39;sIO.png" alt="进程I/O图解"></li></ul></li></ul>
         
           <a class="article-more-a" href="/2019/01/05/JavaIO和网络模型/#more">more >></a>
         
