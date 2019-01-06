@@ -6,32 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://shyknight.github.io">
-  <title>网络模型和 Java I/O | 孙海友的技术博客</title>
+  <title>Java I/O 和网络模型 | 孙海友的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间">
 <meta name="keywords" content="网络模型,I&#x2F;O">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络模型和 Java I&#x2F;O">
-<meta property="og:url" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/index.html">
+<meta property="og:title" content="Java I&#x2F;O 和网络模型">
+<meta property="og:url" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/index.html">
 <meta property="og:site_name" content="孙海友的技术博客">
 <meta property="og:description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/networkAndIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/what%27sIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/BlockIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/UnBlockIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/multiIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/signalIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/asynIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/fiveIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/Prefork.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/Worker.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/Event.png">
-<meta property="og:updated_time" content="2019-01-05T15:14:09.798Z">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/networkAndIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/what%27sIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/BlockIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/UnBlockIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/multiIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/signalIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/asynIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/fiveIO.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Prefork.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Worker.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Event.png">
+<meta property="og:updated_time" content="2019-01-06T10:58:07.720Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络模型和 Java I&#x2F;O">
+<meta name="twitter:title" content="Java I&#x2F;O 和网络模型">
 <meta name="twitter:description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间">
-<meta name="twitter:image" content="https://shyknight.github.io/2019/01/05/网络模型和JavaIO/networkAndIO.png">
+<meta name="twitter:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/networkAndIO.png">
   
     <link rel="alternative" href="/atom.xml" title="孙海友的技术博客" type="application/atom+xml">
   
@@ -169,19 +169,19 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-网络模型和JavaIO" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-JavaIO和网络模型" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      网络模型和 Java I/O
+      Java I/O 和网络模型
     </h1>
   
 
         
-        <a href="/2019/01/05/网络模型和JavaIO/" class="archive-article-date">
+        <a href="/2019/01/05/JavaIO和网络模型/" class="archive-article-date">
   	<time datetime="2019-01-05T11:31:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-05</time>
 </a>
         
@@ -189,7 +189,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/2019/01/05/网络模型和JavaIO/networkAndIO.png" alt="网络模型和IO"></p>
+        <p><img src="/2019/01/05/JavaIO和网络模型/networkAndIO.png" alt="网络模型和IO"></p>
 <h1 id="什么是I-O"><a href="#什么是I-O" class="headerlink" title="什么是I/O"></a>什么是I/O</h1><p>进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间</p>
 <a id="more"></a>
 <h2 id="I-O的基本概念"><a href="#I-O的基本概念" class="headerlink" title="I/O的基本概念"></a>I/O的基本概念</h2><ul>
@@ -199,7 +199,7 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 <li>进程进行I/O获取数据的详细图解<ul>
-<li><img src="/2019/01/05/网络模型和JavaIO/what&#39;sIO.png" alt="进程I/O图解"></li>
+<li><img src="/2019/01/05/JavaIO和网络模型/what&#39;sIO.png" alt="进程I/O图解"></li>
 <li>步骤：<ul>
 <li>1、进程向内核发起一个系统调用</li>
 <li>2、内核接收到系统调用，发送命令获取磁盘中的文件</li>
@@ -214,7 +214,7 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="五种I-O模型"><a href="#五种I-O模型" class="headerlink" title="五种I/O模型"></a>五种I/O模型</h2><ul>
 <li><strong>阻塞I/O</strong><ul>
-<li><img src="/2019/01/05/网络模型和JavaIO/BlockIO.png" alt="阻塞I/O"></li>
+<li><img src="/2019/01/05/JavaIO和网络模型/BlockIO.png" alt="阻塞I/O"></li>
 <li>阻塞的产生<ul>
 <li>进程发起I/O调用，进程又不得不等待I/O的完成，此时CPU把进程切换出去，进程处于<strong>睡眠状态</strong>则此过程为阻塞</li>
 </ul>
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 <li><strong>非阻塞I/O</strong><ul>
-<li><img src="/2019/01/05/网络模型和JavaIO/UnBlockIO.png" alt="非阻塞I/O"></li>
+<li><img src="/2019/01/05/JavaIO和网络模型/UnBlockIO.png" alt="非阻塞I/O"></li>
 <li>非阻塞的原因<ul>
 <li>进程发起I/O调用，进程知道I/O需过一段时间才能完成，就立即通知进程进行别的操作</li>
 </ul>
@@ -238,7 +238,7 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 <li><strong>I/O复用</strong><ul>
-<li><img src="/2019/01/05/网络模型和JavaIO/multiIO.png" alt="I/O复用">  </li>
+<li><img src="/2019/01/05/JavaIO和网络模型/multiIO.png" alt="I/O复用">  </li>
 <li>如图以select为例，讲解I/O复用<ul>
 <li>第一阶段进程执行多个系统调用，其中阻塞发生在select上，并没有直接阻塞在进程上</li>
 <li>第二阶段阻塞发生在进程上</li>
@@ -247,7 +247,7 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 <li><strong>事件(信号)驱动I/O</strong><ul>
-<li><img src="/2019/01/05/网络模型和JavaIO/signalIO.png" alt="信号驱动I/O"></li>
+<li><img src="/2019/01/05/JavaIO和网络模型/signalIO.png" alt="信号驱动I/O"></li>
 <li>如图：<ul>
 <li>第一阶段进程通过事件(信号)触发系统调用，进程本身不会阻塞而是进行其它工作；而在第一阶段结束的时候，内核通过回调函数通知进程</li>
 <li>第二阶段进程会阻塞</li>
@@ -266,22 +266,22 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 <li><strong>异步I/O</strong><ul>
-<li><img src="/2019/01/05/网络模型和JavaIO/asynIO.png" alt="异步I/O"></li>
+<li><img src="/2019/01/05/JavaIO和网络模型/asynIO.png" alt="异步I/O"></li>
 <li>前面4中I/O都是同步操作，异步I/O则是异步操作</li>
 <li>异步的原因<ul>
 <li>进程在两个阶段均不阻塞，可以进行其它工作</li>
-<li>进程通过aio_read函数发起系统调用，相应地I/O结束后进程会接收到aio_read函数的信号，进程与I/O过程解耦<h2 id="I-O模型对比"><a href="#I-O模型对比" class="headerlink" title="I/O模型对比"></a>I/O模型对比</h2><img src="/2019/01/05/网络模型和JavaIO/fiveIO.png" alt="五种I/O对比"></li>
+<li>进程通过aio_read函数发起系统调用，相应地I/O结束后进程会接收到aio_read函数的信号，进程与I/O过程解耦<h2 id="I-O模型对比"><a href="#I-O模型对比" class="headerlink" title="I/O模型对比"></a>I/O模型对比</h2><img src="/2019/01/05/JavaIO和网络模型/fiveIO.png" alt="五种I/O对比"></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h1 id="I-O多路复用"><a href="#I-O多路复用" class="headerlink" title="I/O多路复用"></a>I/O多路复用</h1><h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><h2 id="kueue"><a href="#kueue" class="headerlink" title="kueue"></a>kueue</h2><h1 id="web的三种工作模式"><a href="#web的三种工作模式" class="headerlink" title="web的三种工作模式"></a>web的三种工作模式</h1><h2 id="Prefork工作原理"><a href="#Prefork工作原理" class="headerlink" title="Prefork工作原理"></a>Prefork工作原理</h2><p>主进程生成多个工作进程，由工作进程一对一的去响应客户端的请求<br><img src="/2019/01/05/网络模型和JavaIO/Prefork.png" alt="Prefork工作原理"></p>
-<h2 id="Worker工作原理"><a href="#Worker工作原理" class="headerlink" title="Worker工作原理"></a>Worker工作原理</h2><p>主进程生成多个工作进程，每个工作进程生成一个多个线程，每个线程去响应客户端的请求<br><img src="/2019/01/05/网络模型和JavaIO/Worker.png" alt="Worker工作原理"></p>
+<h1 id="I-O多路复用"><a href="#I-O多路复用" class="headerlink" title="I/O多路复用"></a>I/O多路复用</h1><h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><h2 id="kueue"><a href="#kueue" class="headerlink" title="kueue"></a>kueue</h2><h1 id="web的三种工作模式"><a href="#web的三种工作模式" class="headerlink" title="web的三种工作模式"></a>web的三种工作模式</h1><h2 id="Prefork工作原理"><a href="#Prefork工作原理" class="headerlink" title="Prefork工作原理"></a>Prefork工作原理</h2><p>主进程生成多个工作进程，由工作进程一对一的去响应客户端的请求<br><img src="/2019/01/05/JavaIO和网络模型/Prefork.png" alt="Prefork工作原理"></p>
+<h2 id="Worker工作原理"><a href="#Worker工作原理" class="headerlink" title="Worker工作原理"></a>Worker工作原理</h2><p>主进程生成多个工作进程，每个工作进程生成一个多个线程，每个线程去响应客户端的请求<br><img src="/2019/01/05/JavaIO和网络模型/Worker.png" alt="Worker工作原理"></p>
 <h2 id="Event工作原理"><a href="#Event工作原理" class="headerlink" title="Event工作原理"></a>Event工作原理</h2><p>主进程生成多个工作进程，每个工作进程响应多个客户端的请求</p>
 <ul>
 <li>当工作进程接收到客户端的I/O操作请求后，把I/O操作交给内核执行，工作进程本身去响应其他客户端的请求</li>
-<li>此工作进程最后接到内核的通知，然后通过此工作进程回复客户端的请求结果（通过事件回调函数）<br><img src="/2019/01/05/网络模型和JavaIO/Event.png" alt="Event工作原理"></li>
+<li>此工作进程最后接到内核的通知，然后通过此工作进程回复客户端的请求结果（通过事件回调函数）<br><img src="/2019/01/05/JavaIO和网络模型/Event.png" alt="Event工作原理"></li>
 </ul>
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
 <li><a href="http://blog.51cto.com/litaotao/1289790" target="_blank" rel="noopener">《web优化必须了解的原理之I/O的五种模型和web的三种工作模式》</a></li>
@@ -361,7 +361,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://shyknight.github.io/2019/01/05/网络模型和JavaIO/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://shyknight.github.io/2019/01/05/JavaIO和网络模型/" alt="微信分享二维码">
     </div>
 </div>
 
