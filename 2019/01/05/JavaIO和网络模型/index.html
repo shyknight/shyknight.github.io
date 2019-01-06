@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Prefork.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Worker.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Event.png">
-<meta property="og:updated_time" content="2019-01-06T12:28:22.799Z">
+<meta property="og:updated_time" content="2019-01-06T12:29:25.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java I&#x2F;O和网络模型">
 <meta name="twitter:description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间 I/O的基本概念 I/O操作分为两个步骤： 1、磁盘把数据装载到内核的内存空间 2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)   进程进行I/O获取数据的详细图解">
@@ -323,8 +323,8 @@ var _hmt = _hmt || [];
 <li>epoll只要一次拷贝，而且把current往等待队列上挂也只挂一次，这也能节省不少的开销。</li>
 <li>关于epoll，可以查看<a href="https://www.cnblogs.com/fnlingnzb-learner/p/5835573.html" target="_blank" rel="noopener">《epoll使用详解（精髓）》</a></li>
 </ul>
-<h2 id="kueue"><a href="#kueue" class="headerlink" title="kueue"></a>kueue</h2><ul>
-<li>kueue是在UNIX上比较高效的IO复用技术（其中epoll为Linux独占，而kqueue则在许多UNIX系统上存在，包括MacOS）</li>
+<h2 id="kqueue"><a href="#kqueue" class="headerlink" title="kqueue"></a>kqueue</h2><ul>
+<li>kqueue是在UNIX上比较高效的IO复用技术（其中epoll为Linux独占，而kqueue则在许多UNIX系统上存在，包括MacOS）</li>
 <li>具体可以查看<a href="http://www.cnblogs.com/luminocean/p/5631336.html" target="_blank" rel="noopener">《kqueue用法简介》</a></li>
 </ul>
 <h1 id="web的三种工作模式"><a href="#web的三种工作模式" class="headerlink" title="web的三种工作模式"></a>web的三种工作模式</h1><p>我们使用I/O最频繁的场景就是网络通信，下面就是web的三种工作模式</p>
