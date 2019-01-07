@@ -27,7 +27,8 @@
 <meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Prefork.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Worker.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Event.png">
-<meta property="og:updated_time" content="2019-01-06T12:29:25.720Z">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/newioAndbio.png">
+<meta property="og:updated_time" content="2019-01-07T04:38:58.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java I&#x2F;O和网络模型">
 <meta name="twitter:description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间 I/O的基本概念 I/O操作分为两个步骤： 1、磁盘把数据装载到内核的内存空间 2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)   进程进行I/O获取数据的详细图解">
@@ -360,7 +361,7 @@ var _hmt = _hmt || [];
 <h2 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h2><ul>
 <li>NIO基于Reactor，当socket有流可读或可写入socket时，操作系统会相应地通知引用程序进行处理，应用再将流读取到缓冲区或写入操作系统</li>
 <li>此时，不是一个连接就要对应一个处理线程了，而是有效的请求，对应一个线程，当连接没有数据时，是没有工作线程来处理的</li>
-<li><a href="newioAndbio.png">NIO与BIO的对比</a></li>
+<li><img src="/2019/01/05/JavaIO和网络模型/newioAndbio.png" alt="NIO与BIO的对比"></li>
 <li>NIO与BIO的区别<ul>
 <li>我们使用BIO的时候往往会引入多线程，每个连接一个单独的线程</li>
 <li>而NIO则是使用单线程或者只使用少量的多线程，多个连接共用一个线程</li>
