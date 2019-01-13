@@ -178,7 +178,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="远程通信（RPC）协议"><a href="#远程通信（RPC）协议" class="headerlink" title="远程通信（RPC）协议"></a>远程通信（RPC）协议</h1><p>RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。</p>
+        <h1 id="关于RPC的说明"><a href="#关于RPC的说明" class="headerlink" title="关于RPC的说明"></a>关于RPC的说明</h1><h2 id="远程通信（RPC）协议"><a href="#远程通信（RPC）协议" class="headerlink" title="远程通信（RPC）协议"></a>远程通信（RPC）协议</h2><p>RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。</p>
 <ul>
 <li>传输协议：其中传输协议比较出名的有http、tcp、udp等等<ul>
 <li>http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议</li>
@@ -186,12 +186,15 @@ var _hmt = _hmt || [];
 </li>
 <li>网络IO：主要有bio、nio、aio三种方式</li>
 </ul>
-<h1 id="Binary-RPC"><a href="#Binary-RPC" class="headerlink" title="Binary-RPC"></a>Binary-RPC</h1><ul>
+<h2 id="Binary-RPC"><a href="#Binary-RPC" class="headerlink" title="Binary-RPC"></a>Binary-RPC</h2><ul>
 <li>所有的分布式应用通讯都基于上述两点实现，只是为了应用的易用，各种语言通常都会提供一些更为贴近应用易用的应用层协议。</li>
 <li>其中分布式应用协议中使用广泛的包括了Binary-RPC和RMI</li>
 <li>Binary-RPC是一种和RMI类似的远程调用的协议，它和RMI的不同之处在于<ul>
 <li>以标准的二进制格式来定义请求的信息(请求的对象、方法、参数等)</li>
-<li>因此跨语言通讯的时候也可以使用Binary-RPC</li></ul></li></ul>
+<li>因此跨语言通讯的时候也可以使用Binary-RPC</li>
+</ul>
+</li>
+</ul>
         
           <a class="article-more-a" href="/2019/01/13/序列化协议/#more">more >></a>
         

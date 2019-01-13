@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="https://shyknight.github.io">
   <title>序列化协议 | 孙海友的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都基于上述两点实现">
+  <meta name="description" content="关于RPC的说明远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都">
 <meta name="keywords" content="序列化,二进制协议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="序列化协议">
 <meta property="og:url" content="https://shyknight.github.io/2019/01/13/序列化协议/index.html">
 <meta property="og:site_name" content="孙海友的技术博客">
-<meta property="og:description" content="远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都基于上述两点实现">
+<meta property="og:description" content="关于RPC的说明远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto1.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto2.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto3.png">
-<meta property="og:updated_time" content="2019-01-13T13:18:32.250Z">
+<meta property="og:updated_time" content="2019-01-13T13:45:52.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="序列化协议">
-<meta name="twitter:description" content="远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都基于上述两点实现">
+<meta name="twitter:description" content="关于RPC的说明远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都">
 <meta name="twitter:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto1.png">
   
     <link rel="alternative" href="/atom.xml" title="孙海友的技术博客" type="application/atom+xml">
@@ -181,7 +181,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="远程通信（RPC）协议"><a href="#远程通信（RPC）协议" class="headerlink" title="远程通信（RPC）协议"></a>远程通信（RPC）协议</h1><p>RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。</p>
+        <h1 id="关于RPC的说明"><a href="#关于RPC的说明" class="headerlink" title="关于RPC的说明"></a>关于RPC的说明</h1><h2 id="远程通信（RPC）协议"><a href="#远程通信（RPC）协议" class="headerlink" title="远程通信（RPC）协议"></a>远程通信（RPC）协议</h2><p>RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。</p>
 <ul>
 <li>传输协议：其中传输协议比较出名的有http、tcp、udp等等<ul>
 <li>http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议</li>
@@ -189,15 +189,17 @@ var _hmt = _hmt || [];
 </li>
 <li>网络IO：主要有bio、nio、aio三种方式</li>
 </ul>
-<h1 id="Binary-RPC"><a href="#Binary-RPC" class="headerlink" title="Binary-RPC"></a>Binary-RPC</h1><ul>
+<h2 id="Binary-RPC"><a href="#Binary-RPC" class="headerlink" title="Binary-RPC"></a>Binary-RPC</h2><ul>
 <li>所有的分布式应用通讯都基于上述两点实现，只是为了应用的易用，各种语言通常都会提供一些更为贴近应用易用的应用层协议。</li>
 <li>其中分布式应用协议中使用广泛的包括了Binary-RPC和RMI</li>
 <li>Binary-RPC是一种和RMI类似的远程调用的协议，它和RMI的不同之处在于<ul>
 <li>以标准的二进制格式来定义请求的信息(请求的对象、方法、参数等)</li>
-<li>因此跨语言通讯的时候也可以使用Binary-RPC<a id="more"></a>
-<h2 id="一次Binary-RPC通信过程"><a href="#一次Binary-RPC通信过程" class="headerlink" title="一次Binary-RPC通信过程"></a>一次Binary-RPC通信过程</h2></li>
+<li>因此跨语言通讯的时候也可以使用Binary-RPC</li>
 </ul>
 </li>
+</ul>
+<a id="more"></a>
+<h2 id="一次Binary-RPC通信过程"><a href="#一次Binary-RPC通信过程" class="headerlink" title="一次Binary-RPC通信过程"></a>一次Binary-RPC通信过程</h2><ul>
 <li>通信过程：<ul>
 <li>1、客户端发起请求，按照Binary-RPC协议将请求信息进行填充</li>
 <li>2、填充完毕后将二进制格式文件转化为流，通过传输协议进行传输</li>
@@ -213,11 +215,12 @@ var _hmt = _hmt || [];
 <li>3、怎么接收和处理流</li>
 <li>通过监听的端口获取到请求的流，转化为二进制文件，根据协议获取请求的信息，进行处理并将结果写入文件中返回</li>
 <li>4、传输协议</li>
-<li>http<h2 id="Hessian协议"><a href="#Hessian协议" class="headerlink" title="Hessian协议"></a>Hessian协议</h2>Hessian是一个轻量级的,自定义描述的二进制RPC协议。Hessian主要用作面向对象的消息通信。Hessian的初衷是支持动态类型，格式紧凑，跨语言。</li>
+<li>http等</li>
 </ul>
 </li>
-<li><p><strong>序列化与反序列化</strong></p>
-<ul>
+</ul>
+<h1 id="Hessian协议"><a href="#Hessian协议" class="headerlink" title="Hessian协议"></a>Hessian协议</h1><p>Hessian是一个轻量级的,自定义描述的二进制RPC协议。Hessian主要用作面向对象的消息通信。Hessian的初衷是支持动态类型，格式紧凑，跨语言。</p>
+<h2 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h2><ul>
 <li>hessian通过<code>com.caucho.hessian.io</code>中的代码实现序列化与反序列化</li>
 <li><p>首先我们需要关注的是Abstract<code>SerializerFactory</code></p>
 <ul>
@@ -262,35 +265,31 @@ var _hmt = _hmt || [];
 <li>同理，反序列化的实现是类似的</li>
 <li>得益于hessian序列号和反序列化的实现机制，hessian序列化的速度很快，而且序列化后的字节数也较其他技术少。</li>
 </ul>
-</li>
-<li><p><strong>远程过程调用</strong></p>
-<ul>
+<h2 id="远程过程调用"><a href="#远程过程调用" class="headerlink" title="远程过程调用"></a>远程过程调用</h2><ul>
 <li>Hessian的远程过程调用，完全使用动态代理来实现的</li>
-<li><p>客户端发起请求</p>
+<li><p><strong>客户端发起请求</strong></p>
 <ul>
 <li>客户端主要是通过<code>HessianProxyFactory</code>的<code>create</code>方法创建接口的代理类，该代理类实现了需要调用的接口<ul>
 <li>JDK中<code>proxy</code>类会自动用<code>InvocationHandler</code>的实现类中的<code>invoke</code>方法体进行填充，生成代理类的方法体</li>
 <li>该类在Hessian中表现为<code>HessianProxy</code></li>
 </ul>
 </li>
-<li><p>客户端系统启动时</p>
+<li><p>1、客户端系统启动时</p>
 <ul>
-<li><p>根据<code>serviceUrl</code>和<code>serviceInterface</code>创建代理</p>
-<ul>
+<li>根据<code>serviceUrl</code>和<code>serviceInterface</code>创建代理<ul>
 <li><code>HessianProxyFactoryBean</code>类</li>
-<li><p><code>HessianClientInterceptor</code>类，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createHessianProxy(HessianProxyFactory proxyFactory)</span><br></pre></td></tr></table></figure>
+<li><code>HessianClientInterceptor</code>类，<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createHessianProxy(HessianProxyFactory proxyFactory)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p><code>HessianProxyFactory</code>类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">create</span><span class="params">(Class api, String urlName)</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>客户端调用hessian服务时</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">create</span><span class="params">(Class api, String urlName)</span></span></span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>2、客户端调用hessian服务时</p>
 <ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    invoke(Object proxy, Method method, Object []args) &#123;</span><br><span class="line">        String methodName = method.getName();// 取得方法名</span><br><span class="line">        Object value = args[0]; // 取得传入参数</span><br><span class="line">        conn = sendRequest(mangleName, args) ;      // 通过该方法和服务器端取得连接</span><br><span class="line">        httpConn = (HttpURLConnection) conn;</span><br><span class="line">        code = httpConn.getResponseCode();    // 发出请求</span><br><span class="line">         // 等待服务器端返回相应…………</span><br><span class="line">        is = conn.getInputStream();</span><br><span class="line">        Object value = in.readObject(method.getReturnType()); // 取得返回值</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    invoke(Object proxy, Method method, Object []args) &#123;</span><br><span class="line">        String methodName = method.getName();// 取得方法名</span><br><span class="line">        Object value = args[0]; // 取得传入参数</span><br><span class="line">        conn = sendRequest(mangleName, args) ;      // 通过该方法和服务器端取得连接</span><br><span class="line">        httpConn = (HttpURLConnection) conn;</span><br><span class="line">        code = httpConn.getResponseCode();    // 发出请求</span><br><span class="line">        // 等待服务器端返回相应…………</span><br><span class="line">        is = conn.getInputStream();</span><br><span class="line">        Object value = in.readObject(method.getReturnType()); // 取得返回值</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    URLConnection sendRequest(String methodName, Object []args) &#123;</span><br><span class="line">        URLConnection  conn = _factory.openConnection(_url);      // 创建 URLConnection </span><br><span class="line">        OutputStream os = conn.getOutputStream();</span><br><span class="line">        AbstractHessianOutput out = _factory.getHessianOutput(os); // 封装为 hessian 自己的输入输出 API</span><br><span class="line">        return conn;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -298,24 +297,24 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 </li>
-<li><p>服务器端接收请求并处理请求</p>
+<li><p><strong>服务器端接收请求并处理请求</strong></p>
 <ul>
 <li>服务器端截获相应请求交给：<code>org.springframework.remoting.caucho.HessianServiceExporter</code></li>
 <li><p>具体处理步骤如下</p>
 <ul>
-<li><p><code>HessianServiceExporter</code>类</p>
+<li><p>1、<code>HessianServiceExporter</code>类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(HessianExporter) invoke(request.getInputStream(), response.getOutputStream());</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>HessianExporter</code>类</p>
+<li><p>2、<code>HessianExporter</code>类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(Hessian2SkeletonInvoker) <span class="keyword">this</span>.skeletonInvoker.invoke(inputStream, outputStream);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>Hessian2SkeletonInvoker</code>类</p>
+<li><p>3、<code>Hessian2SkeletonInvoker</code>类</p>
 <ul>
 <li>将输入输出封转化为转化为Hessian特有的<code>Hessian2Input</code>和<code>Hessian2Output</code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Hessian2Input in = <span class="keyword">new</span> Hessian2Input(isToUse);</span><br><span class="line">in.setSerializerFactory(<span class="keyword">this</span>.serializerFactory);</span><br><span class="line">AbstractHessianOutput out = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">int</span> major = in.read();</span><br><span class="line"><span class="keyword">int</span> minor = in.read();</span><br><span class="line">out = <span class="keyword">new</span> Hessian2Output(osToUse);</span><br><span class="line">out = <span class="keyword">new</span> HessianOutput(osToUse);</span><br><span class="line">out.setSerializerFactory(<span class="keyword">this</span>.serializerFactory);</span><br><span class="line">(HessianSkeleton) <span class="keyword">this</span>.skeleton.invoke(in, out);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p><code>HessianSkeleton</code>类</p>
+<li><p>4、<code>HessianSkeleton</code>类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取方法名</span></span><br><span class="line">String methodName = in.readMethod();</span><br><span class="line">Method method = getMethod(methodName);</span><br><span class="line"><span class="comment">// 读取方法参数</span></span><br><span class="line">Class []args = method.getParameterTypes();</span><br><span class="line">Object []values = <span class="keyword">new</span> Object[args.length];</span><br><span class="line"><span class="comment">// 执行相应方法并取得结果</span></span><br><span class="line">result = method.invoke(service, values);</span><br><span class="line"><span class="comment">// 结果写入到输出流</span></span><br><span class="line">out.writeObject(result);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -325,8 +324,6 @@ var _hmt = _hmt || [];
 <li><p>由上面源码分析可知，客户端发起请求和服务器端接收处理请求都是通过hessian自己的API</p>
 <ul>
 <li>输入输出流都要封装为hessian自己的<code>Hessian2Input</code>和<code>Hessian2Output</code></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -345,7 +342,7 @@ var _hmt = _hmt || [];
 <li>自己写一个.proto文件用来描述序列化的格式</li>
 <li>用protobuf提供的protoc工具将.proto文件编译成一个Java文件</li>
 <li>将该Java文件引入到我们的项目中就可以使用</li>
-<li>例如下面的.proto文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// proto3版协议</span><br><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">// 编译之后生成的Java文件的包名</span><br><span class="line">option java_package = &quot;gudao.red.protobuf&quot;;</span><br><span class="line">// 编译之后生成的Java类的类名</span><br><span class="line">option java_outer_classname = &quot;PersonFactory&quot;;</span><br><span class="line">// message 相当于Java中的class</span><br><span class="line">message Person&#123;</span><br><span class="line">    int32 id = 1;</span><br><span class="line">    string name = 2;</span><br><span class="line">    int32 age = 3;</span><br><span class="line">    Addr addr = 4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Addr&#123;</span><br><span class="line">    string contry = 1;</span><br><span class="line">    string city = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>例如下面的.proto文件：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// proto3版协议</span></span><br><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"><span class="comment">// 编译之后生成的Java文件的包名</span></span><br><span class="line">option java_package = <span class="string">"gudao.red.protobuf"</span>;</span><br><span class="line"><span class="comment">// 编译之后生成的Java类的类名</span></span><br><span class="line">option java_outer_classname = <span class="string">"PersonFactory"</span>;</span><br><span class="line"><span class="comment">// message 相当于Java中的class</span></span><br><span class="line">message Person&#123;</span><br><span class="line">    int32 id = <span class="number">1</span>;</span><br><span class="line">    string name = <span class="number">2</span>;</span><br><span class="line">    int32 age = <span class="number">3</span>;</span><br><span class="line">    Addr addr = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Addr&#123;</span><br><span class="line">    string contry = <span class="number">1</span>;</span><br><span class="line">    string city = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
