@@ -6,33 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://shyknight.github.io">
-  <title>Java I/O和网络模型 | 孙海友的技术博客</title>
+  <title>Tag: 序列化 | 孙海友的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间 I/O的基本概念 I/O操作分为两个步骤： 1、磁盘把数据装载到内核的内存空间 2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)   进程进行I/O获取数据的详细图解">
-<meta name="keywords" content="网络模型,I&#x2F;O">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java I&#x2F;O和网络模型">
-<meta property="og:url" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/index.html">
+  <meta name="description" content="湖南大学11级本科生，15级硕士生，美团点评在职工程师">
+<meta name="keywords" content="Java, 后台, 开发工程师, 程序员">
+<meta property="og:type" content="website">
+<meta property="og:title" content="孙海友的技术博客">
+<meta property="og:url" content="https://shyknight.github.io/tags/序列化/index.html">
 <meta property="og:site_name" content="孙海友的技术博客">
-<meta property="og:description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间 I/O的基本概念 I/O操作分为两个步骤： 1、磁盘把数据装载到内核的内存空间 2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)   进程进行I/O获取数据的详细图解">
+<meta property="og:description" content="湖南大学11级本科生，15级硕士生，美团点评在职工程师">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/what%27sIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/BlockIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/UnBlockIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/multiIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/signalIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/asynIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/fiveIO.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/select.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Prefork.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Worker.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/Event.png">
-<meta property="og:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/newioAndbio.png">
-<meta property="og:updated_time" content="2019-01-07T04:38:58.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java I&#x2F;O和网络模型">
-<meta name="twitter:description" content="什么是I/O进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间 I/O的基本概念 I/O操作分为两个步骤： 1、磁盘把数据装载到内核的内存空间 2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)   进程进行I/O获取数据的详细图解">
-<meta name="twitter:image" content="https://shyknight.github.io/2019/01/05/JavaIO和网络模型/what%27sIO.png">
+<meta name="twitter:title" content="孙海友的技术博客">
+<meta name="twitter:description" content="湖南大学11级本科生，15级硕士生，美团点评在职工程师">
   
     <link rel="alternative" href="/atom.xml" title="孙海友的技术博客" type="application/atom+xml">
   
@@ -170,404 +156,64 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaIO和网络模型" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Java I/O和网络模型
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/01/13/序列化协议/" class="archive-article-date">
+  	<time datetime="2019-01-13T09:45:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-13</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/01/13/序列化协议/">序列化协议</a>
     </h1>
   
 
-        
-        <a href="/2019/01/05/JavaIO和网络模型/" class="archive-article-date">
-  	<time datetime="2019-01-05T11:31:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是I-O"><a href="#什么是I-O" class="headerlink" title="什么是I/O"></a>什么是I/O</h1><p>进程想要获取磁盘中的数据，通过系统调用通知内核从磁盘中获取数据，并将数据拷贝至进程的内存空间</p>
-<h2 id="I-O的基本概念"><a href="#I-O的基本概念" class="headerlink" title="I/O的基本概念"></a>I/O的基本概念</h2><ul>
-<li>I/O操作分为两个步骤：<ul>
-<li>1、磁盘把数据装载到内核的内存空间</li>
-<li>2、内核的内存空间的数据copy到用户的内存空间中(此过程是I/O发生的地方)</li>
-</ul>
-</li>
-<li>进程进行I/O获取数据的详细图解<ul>
-<li><img src="/2019/01/05/JavaIO和网络模型/what&#39;sIO.png" alt="进程I/O图解"><a id="more"></a></li>
-<li>步骤：<ul>
-<li>1、进程向内核发起一个系统调用</li>
-<li>2、内核接收到系统调用，发送命令获取磁盘中的文件</li>
-<li>3、磁盘接收到来着内核的命令后，把文件载入到内核的内存空间里面</li>
-<li>4、内核的内存空间接收到数据之后，把数据copy到用户进程的内存空间（此步骤一样需要进程的系统调用）</li>
-<li>5、进程内存空间得到数据后，给内核发送通知</li>
-<li>6、内核把接收到的通知回复给进程，此过程为唤醒进程，然后进程得到数据，进行下一步操作</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="五种I-O模型"><a href="#五种I-O模型" class="headerlink" title="五种I/O模型"></a>五种I/O模型</h2><ul>
-<li><strong>阻塞I/O</strong><ul>
-<li><img src="/2019/01/05/JavaIO和网络模型/BlockIO.png" alt="阻塞I/O"></li>
-<li>阻塞的产生<ul>
-<li>进程发起I/O调用，进程又不得不等待I/O的完成，此时CPU把进程切换出去，进程处于<strong>睡眠状态</strong>则此过程为阻塞</li>
-</ul>
-</li>
-<li>系统如何通知进程<ul>
-<li>I/O完成，系统直接通知进程，则进程被唤醒</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>非阻塞I/O</strong><ul>
-<li><img src="/2019/01/05/JavaIO和网络模型/UnBlockIO.png" alt="非阻塞I/O"></li>
-<li>非阻塞的原因<ul>
-<li>进程发起I/O调用，进程知道I/O需过一段时间才能完成，就立即通知进程进行别的操作</li>
-</ul>
-</li>
-<li>系统如何通知进程<ul>
-<li>每隔一段时间，进程问内核数据是否准备完成；当完成后，则进程获取到数据，继续执行(此过程也称盲等待)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>I/O复用</strong><ul>
-<li><img src="/2019/01/05/JavaIO和网络模型/multiIO.png" alt="I/O复用">  </li>
-<li>如图以select为例，讲解I/O复用<ul>
-<li>第一阶段进程执行多个系统调用，其中阻塞发生在select上，并没有直接阻塞在进程上</li>
-<li>第二阶段阻塞发生在进程上</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>事件(信号)驱动I/O</strong><ul>
-<li><img src="/2019/01/05/JavaIO和网络模型/signalIO.png" alt="信号驱动I/O"></li>
-<li>如图：<ul>
-<li>第一阶段进程通过事件(信号)触发系统调用，进程本身不会阻塞而是进行其它工作；而在第一阶段结束的时候，内核通过回调函数通知进程</li>
-<li>第二阶段进程会阻塞</li>
-</ul>
-</li>
-<li>事件驱动的类型：<ul>
-<li>水平触发：内核通知进程来读取数据，进程没来读取数据，内核需要一次一次的通知进程</li>
-<li>边缘触发：内核只通知一次让进程来读取数据，进程可以在超时时间之内随时来读取数据</li>
-</ul>
-</li>
-<li>Nginx采用边缘触发的事件驱动机制<ul>
-<li>这就是为什么nginx的并发性比apache好</li>
-<li>nginx的性能比apache好，还有其它方面，如nginx支持异步I/O，mmap(内存映射)等等</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>异步I/O</strong><ul>
-<li><img src="/2019/01/05/JavaIO和网络模型/asynIO.png" alt="异步I/O"></li>
-<li>前面4中I/O都是同步操作，异步I/O则是异步操作</li>
-<li>异步的原因<ul>
-<li>进程在两个阶段均不阻塞，可以进行其它工作</li>
-<li>进程通过aio_read函数发起系统调用，相应地I/O结束后进程会接收到aio_read函数的信号，进程与I/O过程解耦</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="I-O模型对比"><a href="#I-O模型对比" class="headerlink" title="I/O模型对比"></a>I/O模型对比</h2><p><img src="/2019/01/05/JavaIO和网络模型/fiveIO.png" alt="五种I/O对比"></p>
-<ul>
-<li>I/O多路复用本质上都是同步I/O，因为他们都需要在读写事件就绪后自己负责进行读写，也就是说这个读写过程是阻塞的</li>
-<li>异步I/O则无需自己负责进行读写，异步I/O的实现会负责把数据从内核拷贝到用户空间</li>
-</ul>
-<h1 id="I-O多路复用"><a href="#I-O多路复用" class="headerlink" title="I/O多路复用"></a>I/O多路复用</h1><p>I/O多路复用就通过一种机制，可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作</p>
-<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p><img src="/2019/01/05/JavaIO和网络模型/select.png" alt="select"></p>
-<ul>
-<li>select的调用过程包括如下步骤：<ul>
-<li>1、使用copy_from_user从用户空间拷贝fd_set到内核空间</li>
-<li>2、注册回调函数__pollwait</li>
-<li>3、遍历所有fd，调用其对应的poll方法（对于socket，这个poll方法是sock_poll，sock_poll根据情况会调用到tcp_poll,udp_poll或者datagram_poll）</li>
-<li>4、以tcp_poll为例，其核心实现就是__pollwait，也就是上面注册的回调函数。</li>
-<li>5、__pollwait的主要工作就是把current（当前进程）挂到设备的等待队列中，不同的设备有不同的等待队列，对于tcp_poll来说，其等待队列是sk-&gt;sk_sleep（注意把进程挂到等待队列中并不代表进程已经睡眠了）。在设备收到一条消息（网络设备）或填写完文件数据（磁盘设备）后，会唤醒设备等待队列上睡眠的进程，这时current便被唤醒了。</li>
-<li>6、poll方法返回时会返回一个描述读写操作是否就绪的mask掩码，根据这个mask掩码给fd_set赋值。</li>
-<li>7、如果遍历完所有的fd，还没有返回一个可读写的mask掩码，则会调用schedule_timeout是调用select的进程（也就是current）进入睡眠。当设备驱动发生自身资源可读写后，会唤醒其等待队列上睡眠的进程。如果超过一定的超时时间（schedule_timeout指定），还是没人唤醒，则调用select的进程会重新被唤醒获得CPU，进而重新遍历fd，判断有没有就绪的fd。</li>
-<li>把fd_set从内核空间拷贝到用户空间。</li>
-</ul>
-</li>
-<li><strong>select的几大缺点</strong><ul>
-<li><strong>每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大</strong></li>
-<li><strong>同时每次调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大</strong></li>
-<li><strong>select支持的文件描述符数量太小了，默认是1024</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><ul>
-<li>poll的实现和select非常相似，只是描述fd集合的方式不同，poll使用pollfd结构而不是select的fd_set结构，其他的都差不多。</li>
-<li>相应地poll也有select的上述缺点</li>
-</ul>
-<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><ul>
-<li>epoll是对select和poll的改进<ul>
-<li>首先select和poll都只提供了一个函数——select或者poll函数。而epoll提供了三个函数，epoll_create,epoll_ctl和epoll_wait，epoll_create是创建一个epoll句柄；epoll_ctl是注册要监听的事件类型；epoll_wait则是等待事件的产生。</li>
-<li>其次epoll解决了上述的缺点<ul>
-<li>对于第一个缺点，epoll的解决方案在epoll_ctl函数中。每次注册新的事件到epoll句柄中时（在epoll_ctl中指定EPOLL_CTL_ADD），会把所有的fd拷贝进内核，而不是在epoll_wait的时候重复拷贝。epoll保证了每个fd在整个过程中只会拷贝一次。</li>
-<li>对于第二个缺点，epoll的解决方案不像select或poll一样每次都把current轮流加入fd对应的设备等待队列中，而只在epoll_ctl时把current挂一遍，并为每个fd指定一个回调函数，当设备就绪，唤醒等待队列上的等待者时，就会调用这个回调函数，而这个回调函数会把就绪的fd加入一个就绪链表。epoll_wait的工作实际上就是在这个就绪链表中查看有没有就绪的fd。</li>
-<li>对于第三个缺点，epoll没有这个限制，它所支持的FD上限是最大可以打开文件的数目。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="select，poll，epoll对比"><a href="#select，poll，epoll对比" class="headerlink" title="select，poll，epoll对比"></a>select，poll，epoll对比</h2><ul>
-<li>select，poll实现需要自己不断轮询所有fd集合，直到设备就绪，期间可能要睡眠和唤醒多次交替</li>
-<li>epoll只要判断一下就绪链表是否为空就行了，这节省了大量的CPU时间，这也就是回调机制带来的性能提升。</li>
-<li>select，poll每次调用都要把fd集合从用户态往内核态拷贝一次，并且要把current往设备等待队列中挂一次</li>
-<li>epoll只要一次拷贝，而且把current往等待队列上挂也只挂一次，这也能节省不少的开销。</li>
-<li>关于epoll，可以查看<a href="https://www.cnblogs.com/fnlingnzb-learner/p/5835573.html" target="_blank" rel="noopener">《epoll使用详解（精髓）》</a></li>
-</ul>
-<h2 id="kqueue"><a href="#kqueue" class="headerlink" title="kqueue"></a>kqueue</h2><ul>
-<li>kqueue是在UNIX上比较高效的IO复用技术（其中epoll为Linux独占，而kqueue则在许多UNIX系统上存在，包括MacOS）</li>
-<li>具体可以查看<a href="http://www.cnblogs.com/luminocean/p/5631336.html" target="_blank" rel="noopener">《kqueue用法简介》</a></li>
-</ul>
-<h1 id="web的三种工作模式"><a href="#web的三种工作模式" class="headerlink" title="web的三种工作模式"></a>web的三种工作模式</h1><p>我们使用I/O最频繁的场景就是网络通信，下面就是web的三种工作模式</p>
-<h2 id="Prefork工作原理"><a href="#Prefork工作原理" class="headerlink" title="Prefork工作原理"></a>Prefork工作原理</h2><p>主进程生成多个工作进程，由工作进程一对一的去响应客户端的请求<br><img src="/2019/01/05/JavaIO和网络模型/Prefork.png" alt="Prefork工作原理"></p>
-<h2 id="Worker工作原理"><a href="#Worker工作原理" class="headerlink" title="Worker工作原理"></a>Worker工作原理</h2><p>主进程生成多个工作进程，每个工作进程生成一个多个线程，每个线程去响应客户端的请求<br><img src="/2019/01/05/JavaIO和网络模型/Worker.png" alt="Worker工作原理"></p>
-<h2 id="Event工作原理"><a href="#Event工作原理" class="headerlink" title="Event工作原理"></a>Event工作原理</h2><p>主进程生成多个工作进程，每个工作进程响应多个客户端的请求</p>
-<ul>
-<li>当工作进程接收到客户端的I/O操作请求后，把I/O操作交给内核执行，工作进程本身去响应其他客户端的请求</li>
-<li>此工作进程最后接到内核的通知，然后通过此工作进程回复客户端的请求结果（通过事件回调函数）<br><img src="/2019/01/05/JavaIO和网络模型/Event.png" alt="Event工作原理"></li>
-<li>下面介绍Event工作原理中两种高效的服务器设计模型：Reactor和Proactor模型</li>
-<li>Reactor模型</li>
-<li>Proactor模型</li>
-<li><a href="https://blog.csdn.net/u013074465/article/details/46276967" target="_blank" rel="noopener">参考</a></li>
-</ul>
-<h1 id="Java-I-O"><a href="#Java-I-O" class="headerlink" title="Java I/O"></a>Java I/O</h1><p>讲了这么多，让我们回到Java I/O。通常我们可以将Java I/O分为同步阻塞的BIO、同步非阻塞的NIO、异步非阻塞的AIO。</p>
-<h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><ul>
-<li>JDK1.4之前，我们使用Java建立网络连接的时候采用BIO模式<ul>
-<li>先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信</li>
-<li>默认情况下服务端需要对请求建立一堆线程等待请求，客户端发送请求后，先咨询服务端是否有线程响应<ul>
-<li>如果没有则会一直等待或者遭到拒绝请求</li>
-<li>如果有的话，客户端与线程均会等待请求结束后才继续执行</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>BIO的大并发问题<ul>
-<li>同时处理多个客户端请求，或客户端要同时和多个服务器进行通讯，就必须使用多线程来处理，将每一个客户端请求分配给一个线程来单独处理。</li>
-<li>由于每创建一个线程，就要为这个线程分配一定的内存空间（也叫工作存储器），而且操作系统本身也对线程的总数有一定的限制</li>
-<li>如果客户端的请求过多，服务端程序可能会因为不堪重负而拒绝客户端的请求，甚至服务器可能会因此而瘫痪</li>
-</ul>
-</li>
-</ul>
-<h2 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h2><ul>
-<li>NIO基于Reactor，当socket有流可读或可写入socket时，操作系统会相应地通知引用程序进行处理，应用再将流读取到缓冲区或写入操作系统</li>
-<li>此时，不是一个连接就要对应一个处理线程了，而是有效的请求，对应一个线程，当连接没有数据时，是没有工作线程来处理的</li>
-<li><img src="/2019/01/05/JavaIO和网络模型/newioAndbio.png" alt="NIO与BIO的对比"></li>
-<li>NIO与BIO的区别<ul>
-<li>我们使用BIO的时候往往会引入多线程，每个连接一个单独的线程</li>
-<li>而NIO则是使用单线程或者只使用少量的多线程，多个连接共用一个线程</li>
-</ul>
-</li>
-<li>NIO配合服务器资源池<ul>
-<li>如果当一个请求来的话，开启线程进行处理，可能会等待后端应用的资源(JDBC连接等)，其实这个线程就被阻塞了，当并发上来的话，还是会有BIO一样的问题</li>
-<li>HTTP/1.1出现后，有了Http长连接，这样除了超时和指明特定关闭的http header外，这个链接是一直打开的状态的<ul>
-<li>此时在后端实现资源池或者队列，当请求来的话，开启的线程把请求和请求数据传送给后端资源池或者队列里面就返回</li>
-<li>前面的线程还是可以去接受其他的请求，而后端的应用的处理只需要执行队列里面的就可以了，这样请求处理和后端应用是异步的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://blog.csdn.net/xidianliuy/article/details/51612676" target="_blank" rel="noopener">参考1</a></li>
-<li><a href="https://www.cnblogs.com/geason/p/5774096.html" target="_blank" rel="noopener">参考2</a></li>
-</ul>
-<h2 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h2><ul>
-<li>异步IO<ul>
-<li>与NIO不同，当进行读写操作时，只须直接调用API的read或write方法即可</li>
-<li>read/write方法都是异步的，完成后会主动调用回调函数</li>
-</ul>
-</li>
-<li>JDK1.7<ul>
-<li>被称为NIO.2，在java.nio.channels包下增加了下面四个异步通道<ul>
-<li>AsynchronousSocketChannel</li>
-<li>AsynchronousServerSocketChannel</li>
-<li>AsynchronousFileChannel</li>
-<li>AsynchronousDatagramChannel</li>
-</ul>
-</li>
-<li>其中的read/write方法，会返回一个带回调函数的对象，当执行完读取/写入操作后，直接调用回调函数</li>
-</ul>
-</li>
-</ul>
-<h2 id="BIO、NIO、AIO对比"><a href="#BIO、NIO、AIO对比" class="headerlink" title="BIO、NIO、AIO对比"></a>BIO、NIO、AIO对比</h2><ul>
-<li>Java对BIO、NIO、AIO的支持<ul>
-<li>Java BIO：同步且阻塞，服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销，当然可以通过线程池机制改善；</li>
-<li>Java NIO：同步非阻塞，服务器实现模式为一个请求一个线程，即客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到连接有I/O请求时才启动一个线程进行处理；</li>
-<li>Java AIO(NIO.2)：异步非阻塞，服务器实现模式为一个有效请求一个线程，客户端的I/O请求都是由OS先完成了再通知服务器应用去启动线程进行处理</li>
-</ul>
-</li>
-<li>BIO、NIO、AIO适用场景分析<ul>
-<li>BIO方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应用中，JDK1.4以前的唯一选择，但程序直观简单易理解。</li>
-<li>NIO方式适用于连接数目多且连接比较短（轻操作）的架构，比如聊天服务器，并发局限于应用中，编程比较复杂，JDK1.4开始支持。</li>
-<li>AIO方式使用于连接数目多且连接比较长（重操作）的架构，比如相册服务器，充分调用OS参与并发操作，编程比较复杂，JDK7开始支持。</li>
-<li>此外，I/O属于底层操作，需要操作系统支持，并发也需要操作系统的支持，所以性能方面不同操作系统差异会比较明显</li>
-</ul>
-</li>
-<li>同步、非同步、阻塞、非阻塞的再对比<ul>
-<li>同步和异步是针对应用程序和内核的交互而言<ul>
-<li>同步指的是：用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪</li>
-<li>异步指的是：用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知</li>
-</ul>
-</li>
-<li>阻塞和非阻塞是针对于进程在访问数据的时候，根据IO操作的就绪状态来采取的不同方式，即是一种读取或者写入操作函数的实现方式<ul>
-<li>阻塞方式下：读取或者写入函数将一直等待</li>
-<li>非阻塞方式下：读取或者写入函数会立即返回一个状态值</li>
-</ul>
-</li>
-<li>同步阻塞IO：在此种方式下，用户进程在发起一个IO操作以后，必须等待IO操作的完成，只有当真正完成了IO操作以后，用户进程才能运行。JAVA传统的IO模型属于此种方式</li>
-<li>同步非阻塞IO：在此种方式下，用户进程发起一个IO操作以后边可返回做其它事情，但是用户进程需要时不时的询问IO操作是否就绪，这就要求用户进程不停的去询问，从而引入不必要的CPU资源浪费。其中目前JAVA的NIO就属于同步非阻塞IO</li>
-<li>异步阻塞IO：此种方式下是指应用发起一个IO操作以后，不等待内核IO操作的完成，等内核完成IO操作以后会通知应用程序，阻塞的原因是select等函数本身的实现方式是阻塞的，而采用select函数有个好处就是它可以同时监听多个文件句柄，从而提高系统的并发性</li>
-<li>异步非阻塞IO：在此种模式下，用户进程只需要发起一个IO操作然后立即返回，等IO操作真正的完成以后，应用程序会得到IO操作完成的通知，此时用户进程只需要对数据进行处理就好了，不需要进行实际的IO读写操作，因为真正的IO读取或者写入操作已经由内核完成了</li>
-</ul>
-</li>
-</ul>
-<h1 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h1><p>Netty是一个高性能、异步事件驱动的NIO框架，基于JAVA NIO提供的API实现。</p>
-<ul>
-<li>它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的</li>
-<li>通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果</li>
-<li><a href="https://blog.csdn.net/excellentyuxiao/article/details/53390408" target="_blank" rel="noopener">参考</a></li>
-<li><a href="https://www.cnblogs.com/xys1228/p/6088805.html" target="_blank" rel="noopener">对于 Netty ByteBuf 的零拷贝(Zero Copy) 的理解</a></li>
-</ul>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
-<li><a href="http://blog.51cto.com/litaotao/1289790" target="_blank" rel="noopener">《web优化必须了解的原理之I/O的五种模型和web的三种工作模式》</a></li>
-<li><a href="http://www.cnblogs.com/Anker/p/3265058.html" target="_blank" rel="noopener">《select、poll、epoll之间的区别总结》</a></li>
-<li><a href="https://www.cnblogs.com/fnlingnzb-learner/p/5835573.html" target="_blank" rel="noopener">《epoll使用详解（精髓）》</a></li>
-<li><a href="https://blog.csdn.net/skiof007/article/details/52873421" target="_blank" rel="noopener">《BIO与NIO、AIO的区别》</a></li>
-<li><a href="https://www.cnblogs.com/geason/p/5774096.html" target="_blank" rel="noopener">《深入理解Java NIO》</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络模型</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">序列化</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">I/O</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">二进制协议</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://shyknight.github.io/2019/01/05/JavaIO和网络模型/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/01/13/序列化协议/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          序列化协议
-        
-      </div>
-    </a>
   
   
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -590,9 +236,9 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
