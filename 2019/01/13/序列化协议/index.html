@@ -16,10 +16,14 @@
 <meta property="og:site_name" content="孙海友的技术博客">
 <meta property="og:description" content="远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都基于上述两点实现">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-13T10:20:54.720Z">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto1.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto2.png">
+<meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto3.png">
+<meta property="og:updated_time" content="2019-01-13T13:18:32.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="序列化协议">
 <meta name="twitter:description" content="远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都基于上述两点实现">
+<meta name="twitter:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto1.png">
   
     <link rel="alternative" href="/atom.xml" title="孙海友的技术博客" type="application/atom+xml">
   
@@ -193,6 +197,180 @@ var _hmt = _hmt || [];
 <li>因此跨语言通讯的时候也可以使用Binary-RPC<a id="more"></a>
 <h2 id="一次Binary-RPC通信过程"><a href="#一次Binary-RPC通信过程" class="headerlink" title="一次Binary-RPC通信过程"></a>一次Binary-RPC通信过程</h2></li>
 </ul>
+</li>
+<li>通信过程：<ul>
+<li>1、客户端发起请求，按照Binary-RPC协议将请求信息进行填充</li>
+<li>2、填充完毕后将二进制格式文件转化为流，通过传输协议进行传输</li>
+<li>3、接收到在接收到流后转换为二进制格式文件，按照Binary-RPC协议获取请求的信息并进行处理</li>
+<li>4、处理完毕后将结果按照Binary-RPC协议写入二进制格式文件中并返回</li>
+</ul>
+</li>
+<li>在通信过程中，我们需要解决一些问题：<ul>
+<li>1、传输的标准格式</li>
+<li>标准格式的二进制文件</li>
+<li>2、怎么讲请求转化为传输的流</li>
+<li>将二进制格式文件转化为流</li>
+<li>3、怎么接收和处理流</li>
+<li>通过监听的端口获取到请求的流，转化为二进制文件，根据协议获取请求的信息，进行处理并将结果写入文件中返回</li>
+<li>4、传输协议</li>
+<li>http<h2 id="Hessian协议"><a href="#Hessian协议" class="headerlink" title="Hessian协议"></a>Hessian协议</h2>Hessian是一个轻量级的,自定义描述的二进制RPC协议。Hessian主要用作面向对象的消息通信。Hessian的初衷是支持动态类型，格式紧凑，跨语言。</li>
+</ul>
+</li>
+<li><p><strong>序列化与反序列化</strong></p>
+<ul>
+<li>hessian通过<code>com.caucho.hessian.io</code>中的代码实现序列化与反序列化</li>
+<li><p>首先我们需要关注的是Abstract<code>SerializerFactory</code></p>
+<ul>
+<li><p>Abstract<code>SerializerFactory</code>有两个抽象方法</p>
+<ul>
+<li><p>根据Class来决定用哪种序列化工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Serializer <span class="title">getSerializer</span><span class="params">(Class cl)</span>  <span class="keyword">throws</span> HessianProtocolException</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据Class来决定用哪种反序列化工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Deserializer <span class="title">getDeserializer</span><span class="params">(Class cl)</span>  <span class="keyword">throws</span> HessianProtocolException</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>SerializerFactory</code>继承Abstract<code>SerializerFactory</code></p>
+<ul>
+<li>在<code>SerializerFactory</code>有很多静态map用来存放类与序列化和反序列化工具类的映射，这样如果已经用过的序列化工具就可以直接拿出来用，不必再重新实例化工具类</li>
+<li>在<code>SerializerFactory</code>中，实现了抽象类的<code>getSerializer</code>方法，根据不同的需要被序列化的类来获得不同的序列化工具<ul>
+<li>一共有17种序列化工具，hessian为不同的类型的java对象实现了不同的序列化工具，默认的序列化工具是<code>JavaSerializer</code></li>
+</ul>
+</li>
+<li>在<code>SerializerFactory</code>中，也实现了抽象类的<code>getDeserializer</code>方法，根据不同的需要被反序列化的类来获得不同的反序列化工具，默认的反序列化工具类是<code>JavaDeserializer</code></li>
+</ul>
+</li>
+<li><p><code>HessianOutput</code>继承<code>AbstractHessianOutput</code>成为序列化输出流的一种实现</p>
+<ul>
+<li>它会实现多种方法，用来做流输出</li>
+<li>它会先调用<code>SerializerFactory</code>根据类来获得serializer序列化工具类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(Object object)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123; </span><br><span class="line">        writeNull(); </span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    Serializer serializer;</span><br><span class="line">    serializer = _serializerFactory.getSerializer(object.getClass()); </span><br><span class="line">    serializer.writeObject(object, <span class="keyword">this</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>AbstractSerializer</code>有17种子类实现，其中默认的是JavaSerializer</p>
+<ul>
+<li><code>JavaSerializer</code>的<code>writeObject</code>方法的实现，遍历java对象的成员变量，根据成员变量的类型来获得各自的<code>FieldSerializer</code></li>
+</ul>
+</li>
+<li><code>FieldSerializer</code>有6种子类实现，默认的为<code>FieldSerializer</code><ul>
+<li>拿默认的<code>FieldSerializer</code>举例，同样调用<code>AbstractHessianOutput</code>的子类来<code>writeObject</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>同理，反序列化的实现是类似的</li>
+<li>得益于hessian序列号和反序列化的实现机制，hessian序列化的速度很快，而且序列化后的字节数也较其他技术少。</li>
+</ul>
+</li>
+<li><p><strong>远程过程调用</strong></p>
+<ul>
+<li>Hessian的远程过程调用，完全使用动态代理来实现的</li>
+<li><p>客户端发起请求</p>
+<ul>
+<li>客户端主要是通过<code>HessianProxyFactory</code>的<code>create</code>方法创建接口的代理类，该代理类实现了需要调用的接口<ul>
+<li>JDK中<code>proxy</code>类会自动用<code>InvocationHandler</code>的实现类中的<code>invoke</code>方法体进行填充，生成代理类的方法体</li>
+<li>该类在Hessian中表现为<code>HessianProxy</code></li>
+</ul>
+</li>
+<li><p>客户端系统启动时</p>
+<ul>
+<li><p>根据<code>serviceUrl</code>和<code>serviceInterface</code>创建代理</p>
+<ul>
+<li><code>HessianProxyFactoryBean</code>类</li>
+<li><p><code>HessianClientInterceptor</code>类，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createHessianProxy(HessianProxyFactory proxyFactory)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>HessianProxyFactory</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">create</span><span class="params">(Class api, String urlName)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>客户端调用hessian服务时</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    invoke(Object proxy, Method method, Object []args) &#123;</span><br><span class="line">        String methodName = method.getName();// 取得方法名</span><br><span class="line">        Object value = args[0]; // 取得传入参数</span><br><span class="line">        conn = sendRequest(mangleName, args) ;      // 通过该方法和服务器端取得连接</span><br><span class="line">        httpConn = (HttpURLConnection) conn;</span><br><span class="line">        code = httpConn.getResponseCode();    // 发出请求</span><br><span class="line">         // 等待服务器端返回相应…………</span><br><span class="line">        is = conn.getInputStream();</span><br><span class="line">        Object value = in.readObject(method.getReturnType()); // 取得返回值</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    URLConnection sendRequest(String methodName, Object []args) &#123;</span><br><span class="line">        URLConnection  conn = _factory.openConnection(_url);      // 创建 URLConnection </span><br><span class="line">        OutputStream os = conn.getOutputStream();</span><br><span class="line">        AbstractHessianOutput out = _factory.getHessianOutput(os); // 封装为 hessian 自己的输入输出 API</span><br><span class="line">        return conn;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>服务器端接收请求并处理请求</p>
+<ul>
+<li>服务器端截获相应请求交给：<code>org.springframework.remoting.caucho.HessianServiceExporter</code></li>
+<li><p>具体处理步骤如下</p>
+<ul>
+<li><p><code>HessianServiceExporter</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(HessianExporter) invoke(request.getInputStream(), response.getOutputStream());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>HessianExporter</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(Hessian2SkeletonInvoker) <span class="keyword">this</span>.skeletonInvoker.invoke(inputStream, outputStream);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Hessian2SkeletonInvoker</code>类</p>
+<ul>
+<li>将输入输出封转化为转化为Hessian特有的<code>Hessian2Input</code>和<code>Hessian2Output</code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Hessian2Input in = <span class="keyword">new</span> Hessian2Input(isToUse);</span><br><span class="line">in.setSerializerFactory(<span class="keyword">this</span>.serializerFactory);</span><br><span class="line">AbstractHessianOutput out = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">int</span> major = in.read();</span><br><span class="line"><span class="keyword">int</span> minor = in.read();</span><br><span class="line">out = <span class="keyword">new</span> Hessian2Output(osToUse);</span><br><span class="line">out = <span class="keyword">new</span> HessianOutput(osToUse);</span><br><span class="line">out.setSerializerFactory(<span class="keyword">this</span>.serializerFactory);</span><br><span class="line">(HessianSkeleton) <span class="keyword">this</span>.skeleton.invoke(in, out);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>HessianSkeleton</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取方法名</span></span><br><span class="line">String methodName = in.readMethod();</span><br><span class="line">Method method = getMethod(methodName);</span><br><span class="line"><span class="comment">// 读取方法参数</span></span><br><span class="line">Class []args = method.getParameterTypes();</span><br><span class="line">Object []values = <span class="keyword">new</span> Object[args.length];</span><br><span class="line"><span class="comment">// 执行相应方法并取得结果</span></span><br><span class="line">result = method.invoke(service, values);</span><br><span class="line"><span class="comment">// 结果写入到输出流</span></span><br><span class="line">out.writeObject(result);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>由上面源码分析可知，客户端发起请求和服务器端接收处理请求都是通过hessian自己的API</p>
+<ul>
+<li>输入输出流都要封装为hessian自己的<code>Hessian2Input</code>和<code>Hessian2Output</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="其他序列化协议"><a href="#其他序列化协议" class="headerlink" title="其他序列化协议"></a>其他序列化协议</h1><h2 id="Protobuf协议"><a href="#Protobuf协议" class="headerlink" title="Protobuf协议"></a>Protobuf协议</h2><ul>
+<li>Protobuf协议，全称：Protocol Buffer，它跟JSON，XML一样，是一个规定好的数据传播格式</li>
+<li>Protocol Buffers是Google开发一种数据描述语言，能够将结构化数据序列化，可用于数据存储、通信协议等方面。</li>
+<li>Protobuf以其序列化和反序列化的效率著称：压缩比高、序列化和反序列化速度快</li>
+<li>下面是protobuf与其它协议的对比：<ul>
+<li><img src="/2019/01/13/序列化协议/proto1.png" alt="压缩比"></li>
+<li><img src="/2019/01/13/序列化协议/proto2.png" alt="响应时间"></li>
+<li><img src="/2019/01/13/序列化协议/proto3.png" alt="具体数字"></li>
+</ul>
+</li>
+<li><p>使用流程</p>
+<ul>
+<li>自己写一个.proto文件用来描述序列化的格式</li>
+<li>用protobuf提供的protoc工具将.proto文件编译成一个Java文件</li>
+<li>将该Java文件引入到我们的项目中就可以使用</li>
+<li>例如下面的.proto文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// proto3版协议</span><br><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">// 编译之后生成的Java文件的包名</span><br><span class="line">option java_package = &quot;gudao.red.protobuf&quot;;</span><br><span class="line">// 编译之后生成的Java类的类名</span><br><span class="line">option java_outer_classname = &quot;PersonFactory&quot;;</span><br><span class="line">// message 相当于Java中的class</span><br><span class="line">message Person&#123;</span><br><span class="line">    int32 id = 1;</span><br><span class="line">    string name = 2;</span><br><span class="line">    int32 age = 3;</span><br><span class="line">    Addr addr = 4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Addr&#123;</span><br><span class="line">    string contry = 1;</span><br><span class="line">    string city = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>尽管Protocol Buffers有序列化速度快、报文体积小以及更好的兼容性等优点，但同时也有一些缺点，在使用时要根据实际情况来选择使用</p>
+<ul>
+<li>缺乏自描述，可读性差<ul>
+<li>可以使用TextFormat</li>
+</ul>
+</li>
+<li>适用于内部服务和存储，而不适合直接对外公开，如Open API<ul>
+<li>但是protobuf v3将加入对json的支持，可解决此问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>protobuf的详细介绍可以查看<a href="https://worktile.com/tech/share/prototol-buffers" target="_blank" rel="noopener">Protocol Buffers序列化协议及应用</a></li>
+<li>与Protocol Buffers类似的框架有微软出的Bond和Facebook出的Thrift</li>
+</ul>
+<h2 id="Protostuff协议"><a href="#Protostuff协议" class="headerlink" title="Protostuff协议"></a>Protostuff协议</h2><ul>
+<li>protostuff是一个基于protobuf实现的序列化方法</li>
+<li>它较于protobuf最明显的好处是，在几乎不损耗性能的情况下不需要.proto文件就可以实现序列化</li>
+<li><p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProtostuffTest</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> RuntimeSchema&lt;Test&gt; testSchema = RuntimeSchema.createFrom(Test.class);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] decode(Test test)&#123;</span><br><span class="line">        <span class="keyword">return</span> ProtostuffIOUtil.toByteArray(test, testSchema, LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Test <span class="title">ecode</span><span class="params">(<span class="keyword">byte</span>[] bytes)</span></span>&#123;</span><br><span class="line">        Test test = testSchema.newMessage();</span><br><span class="line">        ProtostuffIOUtil.mergeFrom(bytes, test, testSchema);</span><br><span class="line">        <span class="keyword">return</span> test;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        InnerTest innerTest = <span class="keyword">new</span> InnerTest(<span class="number">1</span>, <span class="string">"InnerTest1"</span>);</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        list.add(<span class="string">"a"</span>);</span><br><span class="line">        list.add(<span class="string">"b"</span>);</span><br><span class="line">        Test test = <span class="keyword">new</span> Test(<span class="number">1</span>, <span class="string">"Fong"</span>, <span class="string">"备注"</span>, <span class="number">24</span>, <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;, innerTest, list);</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = decode(test);</span><br><span class="line">        System.out.println(bytes.length);</span><br><span class="line">        Test newTest = ecode(bytes);</span><br><span class="line">        System.out.println(newTest);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>protostuff基于字段的定义顺序或Tag注解的标识进行序列化和反序列化，因此对需要序列化的类进行定义和变更时需要注意</p>
 </li>
 </ul>
 
