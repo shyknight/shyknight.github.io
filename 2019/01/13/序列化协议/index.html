@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto1.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto2.png">
 <meta property="og:image" content="https://shyknight.github.io/2019/01/13/序列化协议/proto3.png">
-<meta property="og:updated_time" content="2019-01-13T13:47:21.740Z">
+<meta property="og:updated_time" content="2019-01-13T13:52:09.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="序列化协议">
 <meta name="twitter:description" content="关于RPC的说明远程通信（RPC）协议RPC协议，即远程通信协议，远程通信需要做的就是将流从一台计算机传输到另外一台计算机，基于传输协议和网络IO来实现。  传输协议：其中传输协议比较出名的有http、tcp、udp等等 http、tcp、udp都是在基于Socket为某类应用场景而扩展出的传输协议   网络IO：主要有bio、nio、aio三种方式  Binary-RPC 所有的分布式应用通讯都">
@@ -276,22 +276,25 @@ var _hmt = _hmt || [];
 </li>
 <li><p>1、客户端系统启动时</p>
 <ul>
-<li>根据<code>serviceUrl</code>和<code>serviceInterface</code>创建代理<ul>
+<li><p>根据<code>serviceUrl</code>和<code>serviceInterface</code>创建代理</p>
+<ul>
 <li><code>HessianProxyFactoryBean</code>类</li>
 <li><code>HessianClientInterceptor</code>类，<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createHessianProxy(HessianProxyFactory proxyFactory)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
+<li><p><code>HessianProxyFactory</code>类</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">create</span><span class="params">(Class api, String urlName)</span></span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p><code>HessianProxyFactory</code>类</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">create</span><span class="params">(Class api, String urlName)</span></span></span><br></pre></td></tr></table></figure>
-</code></pre></li>
 <li><p>2、客户端调用hessian服务时</p>
 <ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    invoke(Object proxy, Method method, Object []args) &#123;</span><br><span class="line">        String methodName = method.getName();// 取得方法名</span><br><span class="line">        Object value = args[0]; // 取得传入参数</span><br><span class="line">        conn = sendRequest(mangleName, args) ;      // 通过该方法和服务器端取得连接</span><br><span class="line">        httpConn = (HttpURLConnection) conn;</span><br><span class="line">        code = httpConn.getResponseCode();    // 发出请求</span><br><span class="line">        // 等待服务器端返回相应…………</span><br><span class="line">        is = conn.getInputStream();</span><br><span class="line">        Object value = in.readObject(method.getReturnType()); // 取得返回值</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<li><p><code>HessianProxy</code>类</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">invoke(Object proxy, Method method, Object []args) &#123;</span><br><span class="line">    String methodName = method.getName();<span class="comment">// 取得方法名</span></span><br><span class="line">    Object value = args[<span class="number">0</span>]; <span class="comment">// 取得传入参数</span></span><br><span class="line">    conn = sendRequest(mangleName, args) ;      <span class="comment">// 通过该方法和服务器端取得连接</span></span><br><span class="line">    httpConn = (HttpURLConnection) conn;</span><br><span class="line">    code = httpConn.getResponseCode();    <span class="comment">// 发出请求</span></span><br><span class="line">    <span class="comment">// 等待服务器端返回相应…………</span></span><br><span class="line">    is = conn.getInputStream();</span><br><span class="line">    Object value = in.readObject(method.getReturnType()); <span class="comment">// 取得返回值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">    URLConnection sendRequest(String methodName, Object []args) &#123;</span><br><span class="line">        URLConnection  conn = _factory.openConnection(_url);      // 创建 URLConnection </span><br><span class="line">        OutputStream os = conn.getOutputStream();</span><br><span class="line">        AbstractHessianOutput out = _factory.getHessianOutput(os); // 封装为 hessian 自己的输入输出 API</span><br><span class="line">        return conn;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<li><p><code>HessianProxy</code>类</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">URLConnection <span class="title">sendRequest</span><span class="params">(String methodName, Object []args)</span> </span>&#123;</span><br><span class="line">    URLConnection  conn = _factory.openConnection(_url);      <span class="comment">// 创建 URLConnection </span></span><br><span class="line">    OutputStream os = conn.getOutputStream();</span><br><span class="line">    AbstractHessianOutput out = _factory.getHessianOutput(os); <span class="comment">// 封装为 hessian 自己的输入输出 API</span></span><br><span class="line">    <span class="keyword">return</span> conn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
